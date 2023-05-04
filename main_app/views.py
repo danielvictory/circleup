@@ -4,13 +4,14 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
 from django.http import HttpResponse
 
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic import ListView, DetailView
 
-from .models import Circle
+from .models import Circle, Friend_Request
 
 from .forms import CommentForm
 
@@ -47,7 +48,10 @@ def about(request):
 @login_required
 def circles_index(request):
     circles = Circle.objects.filter(user=request.user)
-    return render(request, 'circles/index.html', { 'circles': circles })
+    allUsers = User.objects.all()
+    return render(request, 'circles/index.html', 
+                  { 'circles': circles,
+                   'allUsers':  allUsers})
 
 @login_required
 def circle_detail(request, circle_id):
@@ -82,3 +86,24 @@ def add_comment(request, circle_id):
     new_comment.user_id = u.id
     new_comment.save()
   return redirect('detail', circle_id=circle_id)
+
+@login_required
+def send_friend_request(request, userID):
+   from_user = request.user.profile
+   to_user = User.objects.get(id=userID).profile
+   friend_request, created = Friend_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
+   if created:
+      return HttpResponse('Friend request sent')
+   else:
+      return HttpResponse('Friend request was already sent')
+   
+@login_required
+def accept_friend_request(request, requestID):
+   friend_request = Friend_Request.objects.get(id=requestID)
+   if friend_request.to_user == request.user:
+      friend_request.to_user.profile.friends.add(friend_request.from_user)
+      friend_request.from_user.profile.friends.add(friend_request.to_user)
+      friend_request.delete()
+      return HttpResponse('Friend Request Accepted')
+   else:
+      return HttpResponse('You did not accept')

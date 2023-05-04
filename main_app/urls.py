@@ -12,4 +12,7 @@ urlpatterns = [
     path('circles/<int:pk>/update', views.CircleUpdate.as_view(), name="circle_update"),
     path('circles/<int:pk>/delete', views.CircleDelete.as_view(), name="circle_delete"),
     path('circless/<int:circle_id>/add_comment/', views.add_comment, name='add_comment'),
+
+    path('send_friend_request/<int:userID>', views.send_friend_request, name='send friend request'),
+    path('accept_friend_request/<int:requestID>', views.accept_friend_request, name='accept friend request')
 ]
