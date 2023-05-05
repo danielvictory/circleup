@@ -19,5 +19,6 @@ A django web-app designed for focused discussion on a proposed subject.
 <https://circleup0.herokuapp.com/>
 
 ## Future Enhancements:
+- Allow circle-owner to hide comments that are "off topic"
 - A feature that would allow users to only be able to join a circle if they are given that ability by the circle creator
 - A feature that would allow private instant messaging between users 
