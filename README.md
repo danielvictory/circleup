@@ -11,8 +11,9 @@ A django web-app designed for focused discussion on a proposed subject.
 - Materialize
 
 ## Screenshots:
-<img src="">
-<img src="">
+<img src="https://ibb.co/p1L8MX4">
+<img src="https://ibb.co/wNYFtHd">
+<img src="https://ibb.co/GFYMB6Y">
 
 ## Getting Started:
 <https://circleup0.herokuapp.com/>
