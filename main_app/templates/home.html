@@ -10,10 +10,9 @@
 
 {% if user.is_authenticated %}
 <section id="home-signs">
-    <div class="row">
-        <div class="col s6">
+    <div class="landingcir">
         <form action="{% url 'index' %}" method="GET">
-            <input type="submit" value="Circles" />
+        <input class="btn" type="submit" value="Circles" />
         </form>
     </div>
 
